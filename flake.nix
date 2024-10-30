@@ -12,6 +12,8 @@
         }));
     in
     {
+      formatter = forAllSystems (pkgs: pkgs.nixpkgs-fmt);
+
       devShells = forAllSystems (pkgs: {
         default = pkgs.mkShell {
           buildInputs = with pkgs; [
@@ -32,12 +34,12 @@
 
       packages = forAllSystems (pkgs: rec {
         default = graph-traversal;
-        graph-traversal= pkgs.graph-traversal;
+        graph-traversal = pkgs.graph-traversal;
       });
 
       apps = forAllSystems (pkgs: rec {
         default = graph-traversal;
-        graph-traversal= {
+        graph-traversal = {
           type = "app";
           program = "${pkgs.graph-traversal}/bin/graph-traversal";
         };
