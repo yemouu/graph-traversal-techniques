@@ -1,0 +1,31 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "graph-traversal"
+version = "0.0.1"
+description = "Algorithm Analysis group project on graph traversal techniques"
+authors = [
+	{email = "dev@lilac.pink"}
+]
+maintainers = [
+	{email = "dev@lilac.pink"}
+]
+readme = "readme.md"
+license = {file = "license"}
+classifiers = [
+	"License :: OSI Approved :: Zero-Clause BSD (0BSD)",
+	"Private :: DO Not Upload"
+]
+
+[project.scripts]
+graph-traversal-driver = "graph_traversal.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/yemouu/graph-traversal-techniques"
+Repository = "https://github.com/yemouu/graph-traversal-techniques"
+Issues = "https://github.com/yemouu/graph-traversal-techniques/issues"
+
+[tool.ruff]
+line-length = 120
