@@ -27,5 +27,12 @@ Homepage = "https://github.com/yemouu/graph-traversal-techniques"
 Repository = "https://github.com/yemouu/graph-traversal-techniques"
 Issues = "https://github.com/yemouu/graph-traversal-techniques/issues"
 
+[tool.hatch.build]
+exclude = [
+	"flake.nix",
+	"flake.lock",
+	"nix"
+]
+
 [tool.ruff]
 line-length = 120
