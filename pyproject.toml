@@ -20,7 +20,7 @@ classifiers = [
 ]
 
 [project.scripts]
-graph-traversal-driver = "graph_traversal.__main__:main"
+graph-traversal = "graph_traversal.__main__:main"
 
 [project.urls]
 Homepage = "https://github.com/yemouu/graph-traversal-techniques"

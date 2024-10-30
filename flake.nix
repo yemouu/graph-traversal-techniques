@@ -26,19 +26,19 @@
       });
 
       overlays.default = final: prev: {
-        graph-traversal-driver = final.callPackage ./nix/packages { };
+        graph-traversal = final.callPackage ./nix/packages { };
       };
 
       packages = forAllSystems (pkgs: rec {
-        default = graph-traversal-driver;
-        graph-traversal-driver = pkgs.graph-traversal-driver;
+        default = graph-traversal;
+        graph-traversal= pkgs.graph-traversal;
       });
 
       apps = forAllSystems (pkgs: rec {
-        default = graph-traversal-driver;
-        graph-traversal-driver = {
+        default = graph-traversal;
+        graph-traversal= {
           type = "app";
-          program = "${pkgs.graph-traversal-driver}/bin/graph-traversal-driver";
+          program = "${pkgs.graph-traversal}/bin/graph-traversal";
         };
       });
     };
