@@ -1,9 +1,19 @@
-def main():
-    print("Hello, World")
+from .methods import bfs_list
 
-    x: int = 5
-    y: int = 4
-    print(f"{x + y = }")
+
+def main():
+    adacency_list: dict[str, tuple[str]] = {
+        "A": ("B", "C"),
+        "B": ("A", "D", "E"),
+        "C": ("A", "F", "G"),
+        "D": ("B",),
+        "E": ("B",),
+        "F": ("C",),
+        "G": ("C",),
+    }
+
+    print(bfs_list(adacency_list, "A"))
+
 
 
 if __name__ == "__main__":
