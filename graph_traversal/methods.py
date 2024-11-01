@@ -7,10 +7,8 @@ def bfs_list(graph: dict[str, tuple[str]], start_node: str) -> str:
         raise ValueError(f"{start_node} is not in this graph")
 
     bfs: str = ""
+    queue: deque[str] = deque(start_node)
 
-    queue: deque[str] = deque()
-
-    queue.append(start_node)
     not_visited.remove(start_node)
 
     while queue:
