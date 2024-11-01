@@ -1,4 +1,4 @@
-from .methods import bfs_list
+from .methods import bfs_list, dfs_list
 
 
 def main():
@@ -14,6 +14,7 @@ def main():
 
     print(bfs_list(adacency_list, "A"))
 
+    print(dfs_list(adacency_list, "A"))
 
 
 if __name__ == "__main__":
