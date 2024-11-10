@@ -1,45 +1,19 @@
+from .graph_helpers import generate_binary_tree
 from .methods import bfs, dfs_iterative
 
 
-def main():
+def main() -> None:
     """Driver script to run through out graph traversal scenarios"""
 
-    # Initialize some adjacency lists
-    adacency_list1: dict[str, tuple[str]] = {
-        "A": ("B", "D"),
-        "B": ("E",),
-        "C": ("D",),
-        "D": ("A", "C"),
-        "E": ("B",),
-    }
+    # Perform Breadth-First Search
+    print(bfs(generate_binary_tree(10), 0))
+    print(bfs(generate_binary_tree(100), 0))
+    print(bfs(generate_binary_tree(1000), 0))
 
-    adacency_list2: dict[str, tuple[str]] = {
-        "A": ("C",),
-        "B": ("C", "D"),
-        "C": ("A", "B"),
-        "D": ("B",),
-        "E": ("D",),
-    }
-
-    adacency_list3: dict[str, tuple[str]] = {
-        "A": ("B", "C"),
-        "B": ("A", "D", "E"),
-        "C": ("A", "F", "G"),
-        "D": ("B",),
-        "E": ("B",),
-        "F": ("C",),
-        "G": ("C",),
-    }
-
-    # Perform Breadth-First Search on adjacency lists starting from node "A"
-    print(bfs(adacency_list1, "A"))
-    print(bfs(adacency_list2, "A"))
-    print(bfs(adacency_list3, "A"))
-
-    # Perform Depth-First Search on our adjacency lists starting at node "A"
-    print(dfs_iterative(adacency_list1, "A"))
-    print(dfs_iterative(adacency_list2, "A"))
-    print(dfs_iterative(adacency_list3, "A"))
+    # Perform Depth-First Search
+    print(dfs_iterative(generate_binary_tree(10), 0))
+    print(dfs_iterative(generate_binary_tree(100), 0))
+    print(dfs_iterative(generate_binary_tree(1000), 0))
 
 
 if __name__ == "__main__":

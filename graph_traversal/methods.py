@@ -2,14 +2,14 @@
 from collections import deque
 
 
-def bfs(graph: dict[str, tuple[str]], start_node: str) -> str:
+def bfs(graph: dict[int, tuple[int]], start_node: int) -> str:
     """Perform Breadth-First Search on a graph
 
     Args:
-        graph: Adjacency list in the form of a dictionary that takes a
-          string as its key (this is the node) and a tuple of strings
+        graph: Adjacency list in the form of a dictionary that takes an
+          integer as its key (this is the node) and a tuple of integers
           (nodes) as its value.
-        start_node: A string representing a node inside the graph.
+        start_node: An integer representing a node inside the graph.
 
     Returns:
         A string representing the order that nodes were visted.
@@ -19,7 +19,7 @@ def bfs(graph: dict[str, tuple[str]], start_node: str) -> str:
     """
 
     # Mark all nodes as 'not visited'
-    not_visited: list[str] = list(graph.keys())
+    not_visited: list[int] = list(graph.keys())
 
     # Check if the starting node exists in the graph and raise an error
     # if it does not
@@ -30,7 +30,7 @@ def bfs(graph: dict[str, tuple[str]], start_node: str) -> str:
     result: str = ""
 
     # Initialize a queue with the start node and mark it as visited
-    queue: deque[str] = deque(start_node)
+    queue: deque[int] = deque([start_node])
     not_visited.remove(start_node)
 
     # While the queue has nodes, remove the oldest item from the queue,
@@ -49,14 +49,14 @@ def bfs(graph: dict[str, tuple[str]], start_node: str) -> str:
     return result
 
 
-def dfs_iterative(graph: dict[str, tuple[str]], start_node: str) -> str:
+def dfs_iterative(graph: dict[int, tuple[int]], start_node: int) -> str:
     """Perform Depth-First Search on a graph using iteration
 
     Args:
-        graph: Adjacency list in the form of a dictionary that takes a
-          string as its key (this is the node) and a tuple of strings
+        graph: Adjacency list in the form of a dictionary that takes an
+          integer as its key (this is the node) and a tuple of integers
           (nodes) as its value.
-        start_node: A string representing a node inside the graph.
+        start_node: An integer representing a node inside the graph.
 
     Returns:
         A string representing the order that nodes were visted.
@@ -66,7 +66,7 @@ def dfs_iterative(graph: dict[str, tuple[str]], start_node: str) -> str:
     """
 
     # Mark all nodes as 'not visited'
-    not_visited: list[str] = list(graph.keys())
+    not_visited: list[int] = list(graph.keys())
 
     # Check if the starting node exists in the graph and raise an error
     # if it does not
@@ -77,7 +77,7 @@ def dfs_iterative(graph: dict[str, tuple[str]], start_node: str) -> str:
     result: str = ""
 
     # Initialize a stack with the start node for DFS traversal
-    stack: list[str] = list(start_node)
+    stack: list[int] = [start_node]
 
     # While the stack has nodes, pop the youngest item from the stack.
     # If the node has not been visited before, visit/process it and
