@@ -1,49 +1,100 @@
-from collections import deque  # Import deque from collections for efficient FIFO queue operations
+# Import deque for efficient FIFO operations
+from collections import deque
 
 
-def bfs_list(graph: dict[str, tuple[str]], start_node: str) -> str:
-    # Define a function 'bfs_list' that performs BFS on a graph and returns the traversal as a string
-    
-    not_visited: list[str] = list(graph.keys())  # Initialize a list of all nodes as 'not visited'
-    
-    if start_node not in not_visited:  # Check if the starting node exists in the graph
-        raise ValueError(f"{start_node} is not in this graph")  # Raise an error if the start node isn't in the graph
+def bfs(graph: dict[str, tuple[str]], start_node: str) -> str:
+    """Perform Breadth-First Search on a graph
 
-    bfs: str = ""  # Initialize an empty string to store the BFS traversal order
-    queue: deque[str] = deque(start_node)  # Initialize a queue with the start node for BFS traversal
+    Args:
+        graph: Adjacency list in the form of a dictionary that takes a
+          string as its key (this is the node) and a tuple of strings
+          (nodes) as its value.
+        start_node: A string representing a node inside the graph.
 
-    not_visited.remove(start_node)  # Mark the start node as visited by removing it from 'not_visited'
+    Returns:
+        A string representing the order that nodes were visted.
 
-    while queue:  # Continue the loop as long as there are nodes in the queue
-        node = queue.popleft()  # Remove and get the node at the front of the queue
-        bfs += f"{node} "  # Append the node to the BFS traversal string
+    Raises:
+        ValueError: The start_node was not inside the graph.
+    """
 
-        for i in graph[node]:  # Iterate over all adjacent nodes of the current node
-            if i in not_visited:  # Check if the adjacent node has not been visited
-                queue.append(i)  # Add the adjacent node to the queue for future processing
-                not_visited.remove(i)  # Mark the adjacent node as visited by removing it from 'not_visited'
+    # Mark all nodes as 'not visited'
+    not_visited: list[str] = list(graph.keys())
 
-    return bfs  # Return the BFS traversal order as a string
+    # Check if the starting node exists in the graph and raise an error
+    # if it does not
+    if start_node not in not_visited:
+        raise ValueError(f"{start_node} is not in this graph")
+
+    # Initialize an empty string to store the BFS traversal order
+    result: str = ""
+
+    # Initialize a queue with the start node and mark it as visited
+    queue: deque[str] = deque(start_node)
+    not_visited.remove(start_node)
+
+    # While the queue has nodes, remove the oldest item from the queue,
+    # visit/process it, and then add its adjacent nodes to the queue
+    # and mark them as visited.
+    while queue:
+        node = queue.popleft()
+        result += f"{node} "
+
+        for i in graph[node]:
+            if i in not_visited:
+                queue.append(i)
+                not_visited.remove(i)
+
+    # Return the traversal order
+    return result
 
 
-def dfs_list(graph: dict[str, tuple[str]], start_node: str) -> str:
-    # Define a function 'dfs_list' that performs DFS on a graph and returns the traversal as a string
-    
-    not_visited: list[str] = list(graph.keys())  # Initialize a list of all nodes as 'not visited'
-    
-    if start_node not in not_visited:  # Check if the starting node exists in the graph
-        raise ValueError(f"{start_node} is not in this graph")  # Raise an error if the start node isn't in the graph
+def dfs_iterative(graph: dict[str, tuple[str]], start_node: str) -> str:
+    """Perform Depth-First Search on a graph using iteration
 
-    dfs: str = ""  # Initialize an empty string to store the DFS traversal order
-    stack: list[str] = list(start_node)  # Initialize a stack with the start node for DFS traversal
+    Args:
+        graph: Adjacency list in the form of a dictionary that takes a
+          string as its key (this is the node) and a tuple of strings
+          (nodes) as its value.
+        start_node: A string representing a node inside the graph.
 
-    while stack:  # Continue the loop as long as there are nodes in the stack
-        node = stack.pop()  # Remove and get the node at the top of the stack
-        if node in not_visited:  # Check if the node has not been visited
-            dfs += f"{node} "  # Append the node to the DFS traversal string
-            not_visited.remove(node)  # Mark the node as visited by removing it from 'not_visited'
-            for adjacent_node in reversed(graph[node]):  # Iterate over all adjacent nodes in reverse order
-                if adjacent_node in not_visited:  # Check if the adjacent node has not been visited
-                    stack.append(adjacent_node)  # Add the adjacent node to the stack for future processing
+    Returns:
+        A string representing the order that nodes were visted.
 
-    return dfs  # Return the DFS traversal order as a string
+    Raises:
+        ValueError: The start_node was not inside the graph.
+    """
+
+    # Mark all nodes as 'not visited'
+    not_visited: list[str] = list(graph.keys())
+
+    # Check if the starting node exists in the graph and raise an error
+    # if it does not
+    if start_node not in not_visited:
+        raise ValueError(f"{start_node} is not in this graph")
+
+    # Initialize an empty string to store the DFS traversal order
+    result: str = ""
+
+    # Initialize a stack with the start node for DFS traversal
+    stack: list[str] = list(start_node)
+
+    # While the stack has nodes, pop the youngest item from the stack.
+    # If the node has not been visited before, visit/process it and
+    # mark it as visited. Then for each adjacent, if it has not been
+    # visited, add it to the stack
+    while stack:
+        node = stack.pop()
+
+        if node in not_visited:
+            result += f"{node} "
+            not_visited.remove(node)
+
+            # We do this in reversed order otherwise we get a result
+            # that would be different from a recursive implementation.
+            for adjacent_node in reversed(graph[node]):
+                if adjacent_node in not_visited:
+                    stack.append(adjacent_node)
+
+    # Return the traversal order
+    return result

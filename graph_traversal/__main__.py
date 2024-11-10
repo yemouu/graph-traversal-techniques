@@ -1,9 +1,10 @@
-from .methods import bfs_list, dfs_list  # Import bfs_list and dfs_list functions from the methods module
+from .methods import bfs, dfs_iterative
 
 
 def main():
-    # Define the main function where the graph adjacency lists and traversal outputs are handled
+    """Driver script to run through out graph traversal scenarios"""
 
+    # Initialize some adjacency lists
     adacency_list1: dict[str, tuple[str]] = {
         "A": ("B", "D"),
         "B": ("E",),
@@ -11,7 +12,6 @@ def main():
         "D": ("A", "C"),
         "E": ("B",),
     }
-    # Initialize 'adjacency_list1' as a dictionary representing a graph with nodes and their adjacent nodes
 
     adacency_list2: dict[str, tuple[str]] = {
         "A": ("C",),
@@ -20,7 +20,6 @@ def main():
         "D": ("B",),
         "E": ("D",),
     }
-    # Initialize 'adjacency_list2' as another dictionary representing a different graph structure
 
     adacency_list3: dict[str, tuple[str]] = {
         "A": ("B", "C"),
@@ -31,16 +30,17 @@ def main():
         "F": ("C",),
         "G": ("C",),
     }
-    # Initialize 'adjacency_list3' as a third dictionary representing a different graph structure
 
-    print(bfs_list(adacency_list1, "A"))  # Perform BFS on 'adjacency_list1' starting from node "A" and print the result
-    print(bfs_list(adacency_list2, "A"))  # Perform BFS on 'adjacency_list2' starting from node "A" and print the result
-    print(bfs_list(adacency_list3, "A"))  # Perform BFS on 'adjacency_list3' starting from node "A" and print the result
+    # Perform Breadth-First Search on adjacency lists starting from node "A"
+    print(bfs(adacency_list1, "A"))
+    print(bfs(adacency_list2, "A"))
+    print(bfs(adacency_list3, "A"))
 
-    print(dfs_list(adacency_list1, "A"))  # Perform DFS on 'adjacency_list1' starting from node "A" and print the result
-    print(dfs_list(adacency_list2, "A"))  # Perform DFS on 'adjacency_list2' starting from node "A" and print the result
-    print(dfs_list(adacency_list3, "A"))  # Perform DFS on 'adjacency_list3' starting from node "A" and print the result
+    # Perform Depth-First Search on our adjacency lists starting at node "A"
+    print(dfs_iterative(adacency_list1, "A"))
+    print(dfs_iterative(adacency_list2, "A"))
+    print(dfs_iterative(adacency_list3, "A"))
 
 
-if __name__ == "__main__":  # Check if the script is being run directly (not imported as a module)
-    main()  # Call the main function to execute the code
+if __name__ == "__main__":
+    main()
