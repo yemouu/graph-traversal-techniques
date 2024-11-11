@@ -5,8 +5,8 @@ def generate_binary_tree(number_of_nodes: int) -> dict[int, tuple[int | None]]:
     """Generate a binary tree
 
     Args:
-        number_of_nodes: Integer representing the number of nodes. Must
-          be larger than 0.
+        number_of_nodes: Integer representing the number of nodes in
+          the graph. Must be larger than 0.
 
     Returns:
         Adjacency list represented by a dictionary with integers as its
@@ -25,7 +25,7 @@ def generate_binary_tree(number_of_nodes: int) -> dict[int, tuple[int | None]]:
     # is being used to ensure that all nodes are being populated. We
     # want each node to have two children which is why we add each node
     # to the queue twice.
-    graph: dict[str, tuple[int | None]] = {0: ()}
+    graph: dict[int, tuple[int | None]] = {0: ()}
     queue: deque[int] = deque([0, 0])
 
     # For each node, pop an existing node off of the queue
