@@ -1,3 +1,4 @@
+import random
 from collections import deque
 
 
@@ -38,6 +39,40 @@ def generate_binary_tree(number_of_nodes: int) -> dict[int, tuple[int | None]]:
 
         graph[node] = (parent_node,)
         queue.extend([node, node])
+
+    # Return the graph we built
+    return graph
+
+
+def generate_graph(number_of_nodes: int, seed: int | None = None) -> dict[int, tuple[int | None]]:
+    """Generate a random graph
+
+    By supplying a seed, the same graph can be generated each time.
+
+    Args:
+        number_of_nodes: Integer representing the number of nodes in
+          the graph. Must be larger than 0.
+        seed: An integer used to seed the random number generator.
+          Using this, the same graph can be reliably generated. If
+          None, the graph will be random.
+    """
+    # Raise an error if the number_of_nodes is a negative number
+    if number_of_nodes < 1:
+        raise ValueError("number_of_nodes is less than 1")
+
+    # Initialize random number generator with a seed
+    rng = random.Random(seed)
+
+    # Initialize a graph with node 0.
+    graph: dict[int, tuple[int | None]] = {0: ()}
+
+    # For each node, randomly select a parent and make a connection
+    # between them
+    for node in range(1, number_of_nodes):
+        parent_node = rng.randint(0, node - 1)
+        graph[parent_node] = graph[parent_node] + (node,)
+
+        graph[node] = (parent_node,)
 
     # Return the graph we built
     return graph
