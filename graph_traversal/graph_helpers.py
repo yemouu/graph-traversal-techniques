@@ -1,7 +1,9 @@
 import random
 from collections import deque
+from functools import cache
 
 
+@cache
 def generate_binary_tree(number_of_nodes: int) -> dict[int, tuple[int | None]]:
     """Generate a binary tree
 
@@ -44,7 +46,8 @@ def generate_binary_tree(number_of_nodes: int) -> dict[int, tuple[int | None]]:
     return graph
 
 
-def generate_graph(number_of_nodes: int, seed: int | None = None) -> dict[int, tuple[int | None]]:
+@cache
+def generate_graph(number_of_nodes: int, seed: int) -> dict[int, tuple[int | None]]:
     """Generate a random graph
 
     By supplying a seed, the same graph can be generated each time.
