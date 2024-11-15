@@ -1,6 +1,8 @@
+import argparse
 import datetime
 import json
 import pathlib
+import pprint
 import time
 from collections import defaultdict
 
@@ -10,11 +12,47 @@ from .methods import bfs, dfs_iterative
 
 def main() -> None:
     """Driver script to run through out graph traversal scenarios"""
+    parser = argparse.ArgumentParser(prog="graph-traversal")
+    parser.add_argument("--run", choices=["demo", "metrics"], help="Run the demo or gather metrics", default="metrics")
+    parser.add_argument("--repeat", "-r", type=int, help="How many times to repeat each runtime test", default=5)
+    parser.add_argument("--seed", "-s", type=int, help="Integer seed to use for randomized graphs", default=2024)
+    parser.add_argument(
+        "--nodes",
+        "-n",
+        type=str,
+        help="Space separated list of numbers for the amount of nodes in a graph",
+        default="2 4 8 16 32 64 128 256 512 1024 2048 4096 8192 16384 32768 65536 131072",
+    )
 
-    # TODO: Make these configurable from cli
-    repeat = 5
-    graph_seed = 2024
-    graph_sizes = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, 32768, 65536, 131072]
+    args = parser.parse_args()
+
+    if args.run == "demo":
+        bintree = generate_binary_tree(8)
+        graph = generate_graph(8, 2024)
+
+        print("Binary Tree = ", end="")
+        pprint.pprint(bintree)
+        print()
+
+        print("Graph = ", end="")
+        pprint.pprint(graph)
+        print()
+
+        print("BFS Traversal:")
+        print("Binary Tree: " + bfs(bintree, 0))
+        print("Graph: " + bfs(graph, 0), end="\n\n")
+
+        print("DFS (Iterative) Traversal:")
+        print("Binary Tree: " + dfs_iterative(bintree, 0))
+        print("Graph: " + dfs_iterative(graph, 0))
+
+        return
+
+    repeat = args.repeat
+    graph_seed = args.seed
+    graph_sizes = [int(size) for size in args.nodes.split()]
+
+    print(f"{repeat = }\n{graph_seed = }\n{graph_sizes = }")
 
     bfs_bintree_results: dict[int, list[float]] = defaultdict(list)
     bfs_graph_results: dict[int, list[float]] = defaultdict(list)
@@ -49,6 +87,8 @@ def main() -> None:
             dfs_iterative_graph_results[size].append(end - start)
 
     date = datetime.datetime.now().strftime("%Y-%m-%d_%H_%M_%S")
+
+    print("Writing results to JSON in current directory...")
 
     with pathlib.Path(f"./{date}-bfs_bintree.json").open("w") as f:
         f.write(json.dumps(bfs_bintree_results))
