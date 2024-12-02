@@ -18,12 +18,12 @@
         default = pkgs.mkShell {
           buildInputs = with pkgs; [
             hatch
-            python3
-            ruff
-            (with python3Packages; [
+            mypy
+            (python3.withPackages (py-pkgs: with py-pkgs; [
               build
               hatchling
-            ])
+            ]))
+            ruff
           ];
         };
       });
