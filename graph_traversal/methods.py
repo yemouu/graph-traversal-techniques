@@ -2,7 +2,7 @@
 from collections import deque
 
 
-def bfs(graph: dict[int, tuple[int]], start_node: int) -> str:
+def bfs(graph: dict[int, tuple[int, ...]], start_node: int) -> str:
     """Perform Breadth-First Search on a graph
 
     Args:
@@ -49,7 +49,7 @@ def bfs(graph: dict[int, tuple[int]], start_node: int) -> str:
     return result
 
 
-def dfs_iterative(graph: dict[int, tuple[int]], start_node: int) -> str:
+def dfs_iterative(graph: dict[int, tuple[int, ...]], start_node: int) -> str:
     """Perform Depth-First Search on a graph using iteration
 
     Args:

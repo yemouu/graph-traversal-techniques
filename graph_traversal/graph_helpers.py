@@ -4,7 +4,7 @@ from functools import cache
 
 
 @cache
-def generate_binary_tree(number_of_nodes: int) -> dict[int, tuple[int | None]]:
+def generate_binary_tree(number_of_nodes: int) -> dict[int, tuple[int, ...]]:
     """Generate a binary tree
 
     Args:
@@ -28,7 +28,7 @@ def generate_binary_tree(number_of_nodes: int) -> dict[int, tuple[int | None]]:
     # is being used to ensure that all nodes are being populated. We
     # want each node to have two children which is why we add each node
     # to the queue twice.
-    graph: dict[int, tuple[int | None]] = {0: ()}
+    graph: dict[int, tuple[int, ...]] = {0: ()}
     queue: deque[int] = deque([0, 0])
 
     # For each node, pop an existing node off of the queue
@@ -47,7 +47,7 @@ def generate_binary_tree(number_of_nodes: int) -> dict[int, tuple[int | None]]:
 
 
 @cache
-def generate_graph(number_of_nodes: int, seed: int) -> dict[int, tuple[int | None]]:
+def generate_graph(number_of_nodes: int, seed: int) -> dict[int, tuple[int, ...]]:
     """Generate a random graph
 
     By supplying a seed, the same graph can be generated each time.
@@ -75,7 +75,7 @@ def generate_graph(number_of_nodes: int, seed: int) -> dict[int, tuple[int | Non
     rng = random.Random(seed)
 
     # Initialize a graph with node 0.
-    graph: dict[int, tuple[int | None]] = {0: ()}
+    graph: dict[int, tuple[int, ...]] = {0: ()}
 
     # For each node, randomly select a parent and make a connection
     # between them
@@ -88,7 +88,8 @@ def generate_graph(number_of_nodes: int, seed: int) -> dict[int, tuple[int | Non
     # Return the graph we built
     return graph
 
-def count_edges(graph: dict[int, tuple[int | None]]) -> int:
+
+def count_edges(graph: dict[int, tuple[int, ...]]) -> int:
     """Count the number of edges in a graph
 
     This function expects an undirected graph
