@@ -58,6 +58,14 @@ def generate_graph(number_of_nodes: int, seed: int) -> dict[int, tuple[int | Non
         seed: An integer used to seed the random number generator.
           Using this, the same graph can be reliably generated. If
           None, the graph will be random.
+
+    Returns:
+        Adjacency list represented by a dictionary with integers as its
+        keys and a tuple of integers as their value. The adjacency list
+        represents a bi-directional graph.
+
+    Raises:
+        ValueError: the number_of_nodes is less than 1
     """
     # Raise an error if the number_of_nodes is a negative number
     if number_of_nodes < 1:
