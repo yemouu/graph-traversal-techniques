@@ -79,3 +79,22 @@ def generate_graph(number_of_nodes: int, seed: int) -> dict[int, tuple[int | Non
 
     # Return the graph we built
     return graph
+
+def count_edges(graph: dict[int, tuple[int | None]]) -> int:
+    """Count the number of edges in a graph
+
+    This function expects an undirected graph
+
+    Args:
+        graph: adjacency graph
+
+    Returns:
+        Number of edges in the given graph
+    """
+    total: int = 0
+    for node in graph:
+        total += len(graph[node])
+
+    # We only test with undirected graphs so each edge is being counted
+    # twice, so do integer division by 2 to get the correct number
+    return total // 2

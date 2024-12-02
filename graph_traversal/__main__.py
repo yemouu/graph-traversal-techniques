@@ -6,12 +6,13 @@ import pprint
 import time
 from collections import defaultdict
 
-from .graph_helpers import generate_binary_tree, generate_graph
+from .graph_helpers import count_edges, generate_binary_tree, generate_graph
 from .methods import bfs, dfs_iterative
 
 
 def main() -> None:
     """Driver script to run through out graph traversal scenarios"""
+
     parser = argparse.ArgumentParser(prog="graph-traversal")
     parser.add_argument("--run", choices=["demo", "metrics"], help="Run the demo or gather metrics", default="metrics")
     parser.add_argument("--repeat", "-r", type=int, help="How many times to repeat each runtime test", default=5)
@@ -58,6 +59,16 @@ def main() -> None:
     bfs_graph_results: dict[int, list[float]] = defaultdict(list)
     dfs_iterative_bintree_results: dict[int, list[float]] = defaultdict(list)
     dfs_iterative_graph_results: dict[int, list[float]] = defaultdict(list)
+
+    # Print the number of vertices in each graph
+    for size in graph_sizes:
+        print(f"Size {size}")
+        bintree = generate_binary_tree(size)
+        graph = generate_graph(size, graph_seed)
+
+        print(f"binary tree: {count_edges(bintree)}")
+        print(f"random graph ({graph_seed}): {count_edges(graph)}")
+        print()
 
     # NOTE: This could maybe be parallelized with more processes but i'm
     # unsure how that would effect time.process_time().
