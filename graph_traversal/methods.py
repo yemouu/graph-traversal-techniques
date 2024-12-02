@@ -78,6 +78,7 @@ def dfs_iterative(graph: dict[int, tuple[int]], start_node: int) -> str:
 
     # Initialize a stack with the start node for DFS traversal
     stack: list[int] = [start_node]
+    not_visited.remove(start_node)
 
     # While the stack has nodes, pop the youngest item from the stack.
     # If the node has not been visited before, visit/process it and
@@ -85,16 +86,14 @@ def dfs_iterative(graph: dict[int, tuple[int]], start_node: int) -> str:
     # visited, add it to the stack
     while stack:
         node = stack.pop()
+        result += f"{node} "
 
-        if node in not_visited:
-            result += f"{node} "
-            not_visited.remove(node)
-
-            # We do this in reversed order otherwise we get a result
-            # that would be different from a recursive implementation.
-            for adjacent_node in reversed(graph[node]):
-                if adjacent_node in not_visited:
-                    stack.append(adjacent_node)
+        # We do this in reversed order otherwise we get a result
+        # that would be different from a recursive implementation.
+        for adjacent_node in reversed(graph[node]):
+            if adjacent_node in not_visited:
+                stack.append(adjacent_node)
+                not_visited.remove(adjacent_node)
 
     # Return the traversal order
     return result
