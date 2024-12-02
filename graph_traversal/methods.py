@@ -19,7 +19,7 @@ def bfs(graph: dict[int, tuple[int]], start_node: int) -> str:
     """
 
     # Mark all nodes as 'not visited'
-    not_visited: list[int] = list(graph.keys())
+    not_visited: set[int] = set(graph.keys())
 
     # Check if the starting node exists in the graph and raise an error
     # if it does not
@@ -66,7 +66,7 @@ def dfs_iterative(graph: dict[int, tuple[int]], start_node: int) -> str:
     """
 
     # Mark all nodes as 'not visited'
-    not_visited: list[int] = list(graph.keys())
+    not_visited: set[int] = set(graph.keys())
 
     # Check if the starting node exists in the graph and raise an error
     # if it does not
